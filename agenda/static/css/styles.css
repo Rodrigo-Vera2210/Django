@@ -1,0 +1,156 @@
+:root{
+    --color-primary: #2EA3F2;
+    --color-text: #666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: var(--color-text);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 80px;
+    background-color: var(--color-primary);
+}
+
+nav ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding:10px ;
+}
+
+nav ul li a:hover{
+    opacity: 0.3;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    margin: 50px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--color-text);
+    border-radius: 10px;
+    width: 50%;
+    list-style-type: none;
+}
+
+.list li{
+    padding: 15px;
+    width: 100%;
+    border-bottom: 1px solid var(--color-text);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn{
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+}
+
+.btn:hover{
+    opacity: 0.3;
+} 
+
+.btn-detail{
+    background-color: var(--color-primary);
+
+}
+.btn-edit{
+    background-color: #ffcc00;
+}
+
+.btn-delete{
+    background-color: #ee1240;
+}
+
+.search {
+    margin: 20px;
+}
+
+.search-bar {
+    padding: 5px;
+    width: 80%;
+}
+
+.btn-search{
+    width: 19%;
+    background-color: var(--color-primary);
+    color: white;
+    outline: none;
+    border: 0;
+    box-shadow: 0;
+    cursor: pointer;
+}
+
+.btn-search:hover{
+    background-color: white;
+    color: var(--color-primary);
+}
+
+.aux-btns{
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    margin: 20px;
+}
+
+.aux-btns a{
+    padding-right: 10px;
+    text-decoration: none;
+}
+
+.alert-success{
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(22, 158, 112);
+    color: white;
+}
+
+.cards {
+    display: flex;
+    justify-content: space-around;
+}
+
+.card {
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: 20px;
+    background-color: var(--color-primary);
+}
+
+.card a{
+    color: white;
+    text-decoration: none;
+}
