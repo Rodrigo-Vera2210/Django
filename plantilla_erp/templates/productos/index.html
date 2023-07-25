@@ -1,0 +1,40 @@
+{% extends 'layout/base.html' %}
+{% block title %} Productos {% endblock title %}
+
+
+{% block content %}
+    <section class="buscador">
+        <select class="select-search" name="producto" id="buscador-producto">
+            <option value="0"> Busque un producto</option>
+            {% for producto in productos %}
+                <option value="{{producto.id}}"> {{producto.nombre}}</option>
+            {% endfor %}
+        </select>
+            <div class="opciones">
+                <button class="btn btn-primary" type="button">Ver Todos</button>
+                <button class="btn btn-success" type="button">Añadir</button>
+            </div>
+    </section>
+    <section class="contenido">
+        <table class="tabla-datos">
+            <thead>
+                <th>Nombre</th>
+                <th>Categoria</th>
+                <th>Proveedor</th>
+                <th></th>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                    <tr>
+                        <td>{{producto.nombre}}</td>
+                        <td>{{producto.categoria}}</td>
+                        <td>{{producto.proveedores}}</td>
+                        <td>
+                            <button class="btn btn-warning"><i class="bi bi-pencil-square"></i></button><button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>    
+{% endblock content %}

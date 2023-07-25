@@ -6,3 +6,4 @@ from .forms import *
 class ListaUsuarios(ListView):
     model = Usuarios
     template_name = 'usuarios/index.html'
+    context_object_name = 'usuarios'

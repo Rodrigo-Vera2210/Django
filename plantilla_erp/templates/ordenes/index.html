@@ -1,1 +1,25 @@
 {% extends 'layout/base.html' %}
+{% block title %} Ordenes {% endblock title %}
+
+
+{% block content %}
+    <section class="buscador">
+        <select class="select-search" name="orden" id="buscador-orden">
+            <option value="0"> Busque un orden</option>
+            {% for orden in ordenes %}
+                <option value="{{orden.id}}"> {{orden.nombre}}</option>
+            {% endfor %}
+        </select>
+            <div class="opciones">
+                <button class="btn btn-primary" type="button">Ver Todos</button>
+                <button class="btn btn-success" type="button">Añadir</button>
+            </div>
+    </section>
+    <section class="contenido">
+        <ul>
+            {% for orden in ordenes %}
+                <li>{{orden.nombre}}</li>
+            {% endfor %}
+        </ul>
+    </section>    
+{% endblock content %}

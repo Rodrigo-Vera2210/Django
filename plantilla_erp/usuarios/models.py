@@ -8,4 +8,4 @@ class Usuarios(models.Model):
     telefono = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return self # TODO
+        return self.nombres # TODO

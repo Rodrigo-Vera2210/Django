@@ -13,7 +13,7 @@ class Orden(models.Model):
     aprobacion = models.BooleanField()
 
     def __str__(self):
-        return self # TODO
+        return self.total # TODO
     
 class DetalleServicio(models.Model):
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE)
@@ -23,7 +23,7 @@ class DetalleServicio(models.Model):
     orden = models.ForeignKey(Orden, models.CASCADE)
     
     def __str__(self):
-        return self # TODO
+        return self.total # TODO
 
 class DetalleProducto(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
@@ -33,7 +33,7 @@ class DetalleProducto(models.Model):
     orden = models.ForeignKey(Orden, models.CASCADE)
 
     def __str__(self):
-        return self # TODO
+        return self.total # TODO
     
 
 

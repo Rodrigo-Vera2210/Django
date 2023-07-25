@@ -6,3 +6,4 @@ from .forms import *
 class ListaServicios(ListView):
     model = Servicio
     template_name = 'servicios/index.html'
+    context_object_name = 'servicios'

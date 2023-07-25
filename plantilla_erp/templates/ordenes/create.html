@@ -1,1 +1,69 @@
-{% extends 'layout/base.html' %}
+{% extends 'layout/base.html' %} 
+{% block title %}Crear orden{% endblock title%} 
+{% block content %}
+<section class="buscarCliente">
+    <div id="buscadorCliente">
+        <select name="cliente" id="buscar_cliente">
+            <option value="0">Seleccione un cliente</option>
+            {% for cliente in cliente %}
+            <option value="{{cliente.id}}">{{cliente.nombres}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="contenidoCliente">
+        <span class="dato"><label for="">Nombres</label><input type="text" id="nombreCliente"></span>
+        <span class="dato"><label for="">Cedula</label><input type="text" id="cedulaCliente"></span>
+        <span class="dato"><label for="">Direccion</label><input type="text" id="direccionCliente"></span>
+        <span class="dato"><label for="">Telefono</label><input type="text" id="telefonoCliente"></span>
+        <span class="dato"><label for="">Fecha</label><input type="text" id="fecha"></span>
+    </div>
+</section>
+<section class="buscarProducto">
+    <div id="buscadorProducto">
+        <select name="producto" id="buscar_producto">
+            <option value="0">Seleccione un producto</option>
+            {% for producto in productos %}
+            <option value="{{producto.id}}">{{producto.nombre}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="contenedorTabla">
+        <table id="tablaProducto">
+            <thead>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
+<section class="buscarServicio">
+    <div id="buscadorServicio">
+        <select name="servicio" id="buscar_servicio">
+            <option value="0">Seleccione un servicio</option>
+            {% for servicio in servicios %}
+            <option value="{{servicio.id}}">{{servicio.nombre}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="contenedorTabla">
+        <table id="tablaServicio">
+            <thead>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
+<section class="detalleFactura">
+    <label for="">Subtotal</label> {{form.subtotal}}
+    <label for="">Iva</label> {{form.iva}}
+    <label for="">Total</label> {{form.total}}
+    <button class="btn btn-success">Guardar</button>
+</section>
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends 'layout/base.html' %}
+{% block title %} Servicios {% endblock title %}
+
+
+{% block content %}
+    <section class="buscador">
+        <select name="servicio" id="buscador-servicio">
+            <option value="0"> Busque un servicio</option>
+            {% for servicio in servicios %}
+                <option value="{{servicio.id}}"> {{servicio.nombre}}</option>
+            {% endfor %}
+        </select>
+            <div class="opciones">
+                <button class="btn btn-primary" type="button">Ver Todos</button>
+                <button class="btn btn-success" type="button">Añadir</button>
+            </div>
+    </section>
+    <section class="contenido">
+        <table class="tabla-datos">
+            <thead>
+                <th>Nombre</th>
+                <th></th>
+            </thead>
+            <tbody>
+                {% for servicio in servicios %}
+                    <tr>
+                        <td>{{servicio.nombre}}</td>
+                        <td>
+                            <button class="btn btn-warning"><i class="bi bi-pencil-square"></i></button><button class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <ul>
+            {% for servicio in servicios %}
+                <li>{{servicio.nombre}}</li>
+            {% endfor %}
+        </ul>
+    </section>    
+{% endblock content %}

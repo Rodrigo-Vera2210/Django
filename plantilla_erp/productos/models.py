@@ -7,13 +7,13 @@ class Proveedores(models.Model):
     telefono = models.IntegerField(max_length=10, blank=True, null=True)
 
     def __str__(self):
-        return self
+        return self.nombre
     
 class Categoria(models.Model):
     nombre = models.CharField(max_length=50, blank=False, null=False)
 
     def __str__(self):
-        return self # TODO
+        return self.nombre # TODO
     
 class Producto(models.Model):
     nombre = models.CharField(max_length=50, blank=False, null=False)
@@ -24,4 +24,4 @@ class Producto(models.Model):
     proveedores = models.ForeignKey(Proveedores, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self
+        return self.nombre

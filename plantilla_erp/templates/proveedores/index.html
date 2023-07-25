@@ -1,0 +1,25 @@
+{% extends 'layout/base.html' %}
+{% block title %} Proveedores {% endblock title %}
+
+
+{% block content %}
+    <section class="buscador">
+        <select class="select-search" name="proveedor" id="buscador-proveedor">
+            <option value="0"> Busque un proveedor</option>
+            {% for proveedor in proveedores %}
+                <option value="{{proveedor.id}}"> {{proveedor.nombre}}</option>
+            {% endfor %}
+        </select>
+            <div class="opciones">
+                <button class="btn btn-primary" type="button">Ver Todos</button>
+                <button class="btn btn-success" type="button">Añadir</button>
+            </div>
+    </section>
+    <section class="contenido">
+        <ul>
+            {% for proveedor in proveedores %}
+                <li>{{proveedor.nombre}}</li>
+            {% endfor %}
+        </ul>
+    </section>    
+{% endblock content %}

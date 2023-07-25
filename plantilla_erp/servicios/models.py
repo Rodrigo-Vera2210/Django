@@ -5,4 +5,4 @@ class Servicio(models.Model):
     precio = models.DecimalField(max_digits=9, decimal_places=2, null=False, blank=False)
 
     def __str__(self):
-        return self
+        return self.nombre

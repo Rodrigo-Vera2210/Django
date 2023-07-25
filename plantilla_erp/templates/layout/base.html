@@ -14,9 +14,11 @@
 </head>
 <body>
     {% include 'layout/header.html' %}
-    {% block content %}
-        
-    {% endblock content %}
+    <div class="main-container">
+        {% block content %}
+            
+        {% endblock content %}
+    </div>
     {% include 'layout/footer.html' %}
     
     <script src="{% static 'js/bootstrap.js' %}"></script>

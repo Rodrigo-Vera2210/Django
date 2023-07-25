@@ -1,0 +1,27 @@
+{% extends 'layout/base.html' %}
+
+{% block title %} Categorias {% endblock title %}
+
+
+{% block content %}
+    <section class="buscador">
+        <select class="select-search" name="categoria" id="buscador-categoria">
+            <option value="0"> Busque un servicio</option>
+            {% for categoria in categorias %}
+                <option value="{{categoria.id}}"> {{categoria.nombre}}</option>
+            {% endfor %}
+        </select>
+            <div class="opciones">
+                <button class="btn btn-primary" type="button">Ver Todos</button>
+                <button class="btn btn-success" type="button">Añadir</button>
+            </div>
+    </section>
+    <section class="contenido">
+        <ul>
+            {% for categoria in categorias %}
+                <li>{{categoria.nombre}}</li>
+            {% endfor %}
+        </ul>
+    </section>    
+{% endblock content %}
+    
