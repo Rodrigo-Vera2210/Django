@@ -1,0 +1,167 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block 'styles' %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+{% endblock%} 
+{% block 'content' %}
+    <section id="container1">
+        <h1>
+            <b
+                >¡Potencia el Éxito de tu PyME con Nuestros Servicios de Marketing,
+                capacitación y Gestión Empresarial!</b
+            >
+        </h1>
+        <p>
+            ¿Buscas el impulso de tu PyME de manera efectiva y sostenible? ¡Ha
+            llegado al lugar adecuado! En GRUPO 5S, nos especializamos en brindar
+            soluciones personalizadas de marketing y gestión empresarial diseñadas
+            para llevar a cabo tu negocio al siguiente nivel.
+        </p>
+    </section>
+    <section id="container2">
+        <h2>¿Por qué elegirnos?</h2>
+        <ul>
+            <li>
+                <b>Track Experiencia Comprobada:</b>Nuestro equipo de expertos
+                cuenta con una trayectoria sólida en la transformación exitosa de
+                PyMEs en diversos sectores.
+            </li>
+            <li>
+                <b>Estrategias a Medida:</b>No creemos en soluciones genéricas.
+                Diseñamos estrategias específicas para tu negocio, considerando tus
+                objetivos y desafíos únicos.
+            </li>
+            <li>
+                <b>Resultados Tangibles:</b>No se trata solo de ideas brillantes,
+                sino de resultados reales. Hemos ayudado a numerosas PyMEs a
+                aumentar sus ingresos, mejorar su presencia en línea y optimizar sus
+                operaciones.
+            </li>
+        </ul>
+    </section>
+    <section id="container3">
+        <h1><b>¿Estás listo para el éxito?</b></h1>
+        <p>
+            No importa si estás comenzando o deseas llevar tu PyME al siguiente
+            nivel; Estamos aquí para acompañarte en cada paso del camino. Permítenos
+            ser tu socio estratégico en el camino hacia el éxito empresarial.
+        </p>
+    </section>
+    <div id="carouselExampleDark" class="carousel carousel-dark slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="10000">
+            <img src="{% static 'img/carrusel1.jpg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h2>Rentabilidad</h2>
+                <p>
+                    Nos atrevemos a rediseñar la rentabilidad. Nuestro equipo fusiona
+                    experiencia y creatividad para gestar soluciones financieras que
+                    impulsan ganancias mientras aseguran bases financieras sólidas,
+                    vitalizando un crecimiento sostenible.
+                </p>
+            </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+            <img src="{% static 'img/carrusel3.jpg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h2>Soluciones Integrales</h2>
+                <p>
+                    Estamos aquí para brindarte soluciones integrales, porque
+                    comprendemos que el éxito abarca muchas dimensiones.
+                </p>
+            </div>
+            </div>
+            <div class="carousel-item">
+            <img src="{% static 'img/carrusel2.jpg' %}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h2>Problemas complejos, Soluciones Simples</h2>
+                <p>
+                    Nuestros expertos te acompañan para tejer hojas de ruta
+                    estratégicas, tejidas con la intención de fomentar un desarrollo
+                    orgánico que trasciende las expectativas tradicionales.
+                </p>
+            </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <section id="containerCards">
+        <div class="card">
+            <img src="{% static 'img/imgCard1.jpg' %}" alt="" />
+            <div class="detalleCard">
+                <h2>Nuestra Misión</h2>
+                <p>
+                    En GRUPO 5S, estamos en una búsqueda apasionada y constante para
+                    transformar las pequeñas y medianas empresas en potencias del éxito.
+                    Nuestra misión se ilumina con un propósito claro: fortalecer,
+                    impulsar y cultivar el potencial innato de cada PyME.
+                </p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'img/imgCard2.jpg' %}" alt="" />
+            <div class="detalleCard">
+                <h2>Nuestro enfoque</h2>
+                <ul>
+                    <li>
+                        <b>Rentabilidad Reimaginada: </b>Desafiamos los límites de la
+                        rentabilidad al rediseñar estrategias que no solo generan
+                        ganancias, sino que también fundaron cimientos financieros
+                        robustos, fomentando un crecimiento constante.
+                    </li>
+                    <li>
+                        <b>Crecimiento en Evolución:</b>Creemos que el crecimiento no es
+                        un destino, sino un viaje en constante evolución. Colaboramos
+                        contigo para forjar rutas estratégicas que catalicen un
+                        crecimiento orgánico y sostenible, definiendo un nuevo estándar
+                        de éxito.
+                    </li>
+                    <li>
+                        <b>Impacto Transformador:</b>Comprendemos el alcance
+                        transformador de las PyMEs en las comunidades y en la economía
+                        global. Al nutrir tu éxito, contribuimos a tejer redes de
+                        prosperidad que llegan más allá de los negocios y llegan al
+                        corazón de la sociedad.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'img/imgCard3.jpg' %}" alt="" />
+            <div class="detalleCard">
+                <h2>Nuestra Promesa</h2>
+                <p>
+                    En GRUPO 5S, no solo proporcionamos soluciones; somos tus compañeros
+                    de viaje. Nuestro compromiso trasciende la asesoría: estamos
+                    dedicados a desbloquear tu potencial completo ya ser tus aliados
+                    inquebrantables mientras alcanzas nuevas alturas.
+                </p>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalCategoria" aria-hidden="true" role="dialog">
+    </div>
+{% endblock 'content' %}
+
+{% block script %}
+    <script>
+        const myCarouselElement = document.querySelector('#carouselExampleDark')
+
+        const carousel = new bootstrap.Carousel(myCarouselElement, {
+            interval: 2000,
+            touch: false
+        })
+    </script>
+{% endblock script%}

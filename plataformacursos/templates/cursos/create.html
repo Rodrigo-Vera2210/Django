@@ -1,0 +1,155 @@
+{% extends '../base.html' %} 
+{% load widget_tweaks %}
+{% load static %}
+{% block 'styles' %}
+    <link rel="stylesheet" href="{% static 'css/cursos/create.css' %}">
+{% endblock%}
+
+{% block 'content' %}
+    <div class="mainContainer">
+        <h1>Crear curso</h1>
+        <form class="containerCurso" action="" id="form_creacion" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p><label for="id_titulo">{{form.titulo.label}}</label>{{form.titulo}}</p> 
+            <p><label for="id_descripcion">{{form.descripcion.label}}</label>{{form.descripcion}}</p> 
+            <p><label for="id_precio">{{form.precio.label}}</label>{{form.precio}}</p> 
+            <p><label for="id_portada">{{form.portada.label}}</label>{{form.portada}}</p> 
+            <p><label for="id_portada">{{form.fechaInicio.label}}</label>{{form.fechaInicio|attr:'type:date'}}</p> 
+            <p><label for="id_portada">{{form.fechaFinal.label}}</label>{{form.fechaFinal|attr:'type:date'}}</p> 
+            <p><label for="id_portada">{{form.horario.label}}</label>{{form.horario}}</p> 
+            <p style="display: none;">{{form.profesor}}</p> 
+            <input type="hidden" id="profesor" value="{{user.id}}">
+        </form>
+        <div class="buttonG"><input id="guardar" type="button" value="Guardar" class="btn btn-success" ></div>
+        <hr>
+        <section class="clasesContainer">
+            <h2>Añadir módulos</h2>
+            <table id="detalleClases">
+                <thead>
+                    <th>Titulo</th>
+                    <th>Clases</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div id="addClass"><button type="button" class="btn btn-dark" onclick="abrir_modal('../../clases/modulo/crear')">Añadir modulo</button></div>
+        </section>
+    </div>
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalCategoria" aria-hidden="true" role="dialog">
+    </div>
+{% endblock 'content' %}
+    
+
+{% block script %}
+    <script>
+        const $select = document.querySelector('#id_profesor');
+        const $profesor = document.querySelector('#profesor');
+        $select.value = $profesor.value
+        var modulo = {}
+        var clasesArr = {}
+        var cantidadModulo = 0
+        $('#detalleClases').DataTable();
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+        $(document).ready(function (){
+            $('#guardar').on('click', function(){
+                var data = new FormData($('#form_creacion').get(0))
+                data.append("accion","guardar")
+                data.append("modulos", JSON.stringify(modulo))
+                data.append("clases", JSON.stringify(clasesArr))
+                $.ajax({
+                    url: "{% url 'createCursos' %}",
+                    type: 'post',
+                    headers: {'X-CSRFToken': csrftoken},
+                    data: data,
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                }).done(function(data){
+                    if (data['error'] == '') {
+                        mensajeSuccess('Curso creado con exito')
+                    }else{
+                        mensajeError(data['error'])
+                    }
+                }).fail(function(data){
+                    mostrarErrores(data, 'producto');
+                }).always(function(data){
+                    // alert("complete");
+                });
+            });
+        })
+        function guardarModulo(){
+            modulo[cantidadModulo] = {
+                'titulo':$('#tituloModulo').val(), 
+                'descripcion':$('#descripModulo').val(),
+            }
+            listarModulo();
+            cerrar_modal_eliminacion()
+        }
+        function listarModulo(){
+            $('#detalleClases tbody').html("");
+            for(let i = 0; i <= cantidadModulo; i++){
+                let fila = '<tr>';
+                fila +=  '<td>' + (modulo[i]['titulo']) + '</td>';
+                fila +=  '<td>' + `<select name="producto" id="bus_productos${i}" onchange="guardarClases(${i})" class="buscador_field" multiple><option value="0">Seleccione una clase</option>`;
+                {% for clase in clases %}
+                    if(clasesArr[i] != undefined ){
+                        for (const key in clasesArr[i]) {
+                            if (clasesArr[i][key].toString() == '{{clase.id}}'){
+                                fila += '<option value="{{clase.id}}" selected>{{clase.titulo}}</option>';
+                            }else{
+                                fila += '<option value="{{clase.id}}">{{clase.titulo}}</option>';
+                            }
+                        }
+                    }else{
+                        fila += '<option value="{{clase.id}}">{{clase.titulo}}</option>';
+                    }
+                {% endfor %}
+                fila += '</select></td>';
+                fila +=  `<td><button class="btn-sm btn-danger" type="button" onclick="borrarModulo(${i})"><i class="bi bi-trash-fill"></button></td>`;
+                fila +=  '</tr>';
+                $('#detalleClases tbody').append(fila);
+            }
+            console.log(cantidadModulo);
+            let id_prod = document.getElementsByClassName("buscador_field")
+            for (let index = 0; index <= cantidadModulo; index++) {
+                $(`#bus_productos${index}`).select2()
+            }
+            cantidadModulo++;
+        }
+        function guardarClases(index){
+            clasesArr[index] = $(`#bus_productos${index}`).val();
+        }
+
+        function borrarModulo(index){
+            delete modulo[index]
+            cantidadModulo-=2
+            ordenarModulo()
+            listarModulo()
+        };
+
+        function ordenarModulo(){
+            for (let i = 0; i <= cantidadModulo; i++) {
+                if(modulo[i] == null){
+                    modulo[i] = modulo[i+1];
+                    delete modulo[i+1]}
+            }
+        }
+    </script>
+{% endblock script %}

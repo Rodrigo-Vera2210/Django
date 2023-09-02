@@ -1,0 +1,55 @@
+main {
+  padding: 20px 0;
+}
+
+.mainContainer {
+  width: 80%;
+  background-color: white;
+  padding: 0 20px;
+  border-radius: 20px;
+  margin: 0 auto;
+}
+.mainContainer .containerCurso p {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.mainContainer .containerCurso p label {
+  width: 25%;
+  height: 5vh;
+}
+.mainContainer .containerCurso p input {
+  width: 70%;
+}
+.mainContainer .containerCurso p textarea {
+  width: 70%;
+  height: 30vh;
+}
+.mainContainer .buttonG {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mainContainer .clasesContainer #addClass {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+#detalleClases_filter {
+  display: flex !important;
+  align-items: center;
+  padding: 0 20px;
+  height: 50px;
+  background-color: #c9c9d3;
+}
+#detalleClases_filter label {
+  width: 100%;
+}
+#detalleClases_filter label input {
+  margin-left: 20px;
+  width: 60%;
+}/*# sourceMappingURL=create.css.map */

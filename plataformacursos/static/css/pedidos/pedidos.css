@@ -1,0 +1,23 @@
+main {
+  padding: 20px;
+}
+main #main-container {
+  padding: 5%;
+  background-color: #fcfcf9;
+  border-radius: 20px;
+}
+
+#detalleCursos, #detalleRecursos {
+  flex-direction: column;
+}
+#detalleCursos div, #detalleRecursos div {
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+#detalleCursos div div, #detalleRecursos div div {
+  width: 100%;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+}/*# sourceMappingURL=pedidos.css.map */

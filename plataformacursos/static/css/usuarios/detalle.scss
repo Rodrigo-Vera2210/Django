@@ -1,0 +1,51 @@
+@import "../variables";
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    #main-container{
+        width: 90%;
+        background-color: $background-color-menu;
+        border-radius: 20px;
+        padding-bottom: 30px;
+        #datosCuenta{
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 10%;
+            #datos{
+                width: 400px;
+                div{
+                    width: 100%;
+                    display: flex;
+                    label{
+                        width: 40%;
+                    }
+                    p{
+                        width: 55%;
+                    }
+                }
+            }
+            #Foto{
+                width: 400px;
+                div{
+                    padding: 0 10%;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    img{
+                        width: 200px;
+                        margin: 0 auto;
+                    }
+                }
+            }
+        }
+        #misCursos{
+            padding: 0 10%;
+            tr{
+                height: 30px;
+            }
+        }
+    }
+}

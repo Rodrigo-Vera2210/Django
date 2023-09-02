@@ -1,0 +1,167 @@
+{% extends '../base.html' %} 
+{% load embed_video_tags %}
+{% load static %}
+
+{% block 'styles' %}
+    <link rel="stylesheet" href="{% static 'css/cursos/intro.css' %}">
+{% endblock%}
+
+{% block 'content' %}
+    <div id="cuentaRegresiva">
+
+    </div>
+
+    <section id="detalleCursos">
+        <div class="detalles">
+            <h1>{{cursos.titulo}}</h1>
+            <p>{{cursos.descripcion}} </p>
+        </div>
+        <div class="imagen">
+            <img src="../../media/{{cursos.portada}}" alt="Portada">
+        </div>
+    </section>
+    <section id="paraQuien">
+        <h2>¿Para quién es el curso?</h2>
+        <div class="cards">
+            <div class="card">
+                <div class="iconosEs bg-success bg-gradient"><i class="bi bi-book-half"></i></div>
+                <div class="card-body text-center">
+                    <h4>Profesionales en Desarrollo</h4>
+                    <p class="card-text">Que necesitan dominar funciones avanzadas, análisis de datos y crea informes impactantes. Imagina las puertas que se abrirán con estas habilidades.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="iconosEs bg-secondary bg-gradient"><i class="bi bi-building"></i></div>
+                <div class="card-body text-center">
+                    <h4>Dueños de Negocio</h4>
+                    <p class="card-text">Que buscan tomar decisiones basadas en datos, crecer su negocio y ser líderes informados. Aprovecha esta oportunidad para prosperar.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="iconosEs bg-info bg-gradient"><i class="bi bi-building"></i></div>
+                <div class="card-body text-center">
+                    <h4>Profesionales Senior</h4>
+                    <p class="card-text">Que necesitan liberar tiempo y hacer más en menos tiempo. Nuestro curso te mostrará cómo optimizar tus tareas y ser más eficiente.</p>
+                </div>
+            </div>
+            
+
+        </div>
+    </section>
+    <section id="profesor">
+        <div id="fotoProfesor">
+            {% if cursos.profesor.foto == "default.png" %}
+                <img src="../../media/usuarios/{{cursos.profesor.foto}}" alt="">
+            {% else %}
+                <img src="../../media/{{cursos.profesor.foto}}" alt="">
+            {% endif %}
+            <h3>{{cursos.profesor.nombre}} {{cursos.profesor.apellido}}</h3>
+        </div>
+        <div id="descripcionProfesor">
+            <h4>¡ Conocerás el método que yo utilizo !</h4>
+            <p>Descubre el secreto para destacar con el dominio de Excel y ser muy bien remunerado por ello. !Cambia tu vida de una vez por todas¡
+            </p> 
+            <p>Ing. Comercial / Analista Logístico en General Motors</p>
+        </div>
+    </section>
+    <div id="containerModulos">
+        <h2>¿Qué vas a aprender?</h2>
+        <div class="accordion" id="nav">
+            {% for modulo in modulos %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{modulo.id}}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{modulo.id}}" aria-expanded="true" aria-controls="collapseOne">
+                            {{modulo.titulo}}
+                        </button>
+                    </h2>
+                    <div id="collapse{{modulo.id}}" class="accordion-collapse collapse" aria-labelledby="heading{{modulo.id}}" data-bs-parent="#nav">
+                        <div class="accordion-body">
+                            <p>{{modulo.descripcion}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+
+    <section id="detalles">
+        <div><label for="">Horario:</label> {{cursos.horario}} </div>
+        <div><label for="">Fecha de inicio:</label> {{cursos.fechaInicio}} </div>
+        <div><label for="">Fecha de finalización:</label> {{cursos.fechaFinal}} </div>
+        
+    </section>
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalCategoria" aria-hidden="true" role="dialog">
+    </div>
+{% endblock 'content' %}
+
+{% block script %}
+    <script>
+        var ruta = window.location.href;
+        const d = document
+        function countdown(id, limitDate){
+            const $countdown = d.getElementById(id),
+                countdownDate = new Date(limitDate).getTime();
+
+            let countdownTempo = setInterval(()=>{
+                let now = new Date().getTime(),
+                    limitTime = countdownDate - now,
+                    days = Math.floor(limitTime / (1000 * 60 * 60 * 24)),
+                    hours = ("0" + Math.floor(limitTime % (1000 * 60 * 60 * 24)/(1000*60*60))).slice(-2), 
+                    minutes = ("0" + Math.floor(limitTime % (1000 * 60 * 60)/(1000*60))).slice(-2), 
+                    seconds = ("0" + Math.floor(limitTime % (1000 * 60)/(1000))).slice(-2);
+
+                $countdown.innerHTML = `<div><h3>${days}</h3> <p>dias</p> </div> <div><h3>${hours}</h3> <p>horas</p> </div> <div><h3>${minutes}</h3> <p>minutos</p> </div> <div><h3>${seconds}</h3> <p>segundos</p> </div>  `;
+                if(limitTime < 0){
+                    clearInterval(countdownTempo);
+                }
+            }, 1000)
+        }
+        
+        let fecha = '{{cursos.fechaInicio}}'.split(' ') 
+        let meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']
+        let newFecha = ''
+        for (const key in meses) {
+            if (fecha[2] == meses[key]) {
+                a = parseInt(key)+1 
+                newFecha += a
+            }
+        }
+        newFecha +='/' + fecha[0] 
+        newFecha+='/'+fecha[4]
+        console.log(newFecha);
+        countdown('cuentaRegresiva', newFecha)
+        function guardarRecurso(){
+            const csrftoken = getCookie('csrftoken');
+            $.ajax({
+                url: ruta,
+                type: 'post',
+                headers: {'X-CSRFToken': csrftoken},
+                data: {
+                    titulo: $('#tituloRecurso').val(),
+                    descripcion: $('#descripRecurso').val(),
+                    link: $('#id_link').val(),
+                    precio: $('#id_precio').val(),
+                    clase: $('#idClase').val(),
+                    action: 'guardarRecurso'
+                },
+                dataType: 'json',
+            }).done(function(data){
+                if (data['error'] == '') {
+                    mensajeSuccess('Recurso creado con exito')
+                    cerrar_modal_eliminacion()
+                }else{
+                    mensajeError(data['error'])
+                }
+            }).fail(function(data){
+                mostrarErrores(data, 'producto');
+            }).always(function(data){
+                // alert("complete");
+            });
+        }
+        hamburgerMenu(".subMenu-btn",".menuClases",".menuC a");
+        function cambiarVideo(url) {
+            console.log(url);
+            $('')
+        }
+    </script>
+{% endblock script%}

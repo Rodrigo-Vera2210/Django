@@ -1,0 +1,49 @@
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+main #main-container {
+  width: 90%;
+  background-color: #fcfcf9;
+  border-radius: 20px;
+  padding-bottom: 30px;
+}
+main #main-container #datosCuenta {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 10%;
+}
+main #main-container #datosCuenta #datos {
+  width: 400px;
+}
+main #main-container #datosCuenta #datos div {
+  width: 100%;
+  display: flex;
+}
+main #main-container #datosCuenta #datos div label {
+  width: 40%;
+}
+main #main-container #datosCuenta #datos div p {
+  width: 55%;
+}
+main #main-container #datosCuenta #Foto {
+  width: 400px;
+}
+main #main-container #datosCuenta #Foto div {
+  padding: 0 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+main #main-container #datosCuenta #Foto div img {
+  width: 200px;
+  margin: 0 auto;
+}
+main #main-container #misCursos {
+  padding: 0 10%;
+}
+main #main-container #misCursos tr {
+  height: 30px;
+}/*# sourceMappingURL=detalle.css.map */

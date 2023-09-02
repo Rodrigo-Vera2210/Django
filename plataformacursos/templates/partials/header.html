@@ -1,0 +1,79 @@
+{% load static %}
+<header>
+    <div id="header-sup">
+        <img src="{% static 'img/logo.jpg' %}" alt="Logo">
+    </div>
+    <div id="subMenu">
+        {% if user.is_authenticated %}
+            <div class="dropdown2">
+                <button class="dropbtn"><i class="bi bi-person-circle"></i> {{user}}
+                    <i class="bi bi-caret-down-fill"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="{% url 'usuarioDetalle' pk=user.id %}">Mi Perfil</a>
+                    {% for g in user.groups.all %}
+                        {% if g.name == "alumno" %}
+                            <a href="{% url 'misPedidos' pk=user.id %}">Mis Pedidos</a>
+                        {% endif %}
+                    {% endfor %}
+                    <a href="{% url 'logout' %}">Cerrar sesión</a>
+                </div>
+            </div>
+            
+            {% for g in user.groups.all %}
+                {% if g.name == "alumno" %}
+                    <a href="{% url 'sumatoriaCarrito' %}">
+                        <button type="button" class="btn">
+                            <i class="bi bi-cart"></i>
+                            {% if carrito.carrito.curso|length > 0 %}
+                                {% with carrito.carrito.curso|length as totalCant %}
+                                    {% if totalCant > 0 %}
+                                        <span id="cantidadProductos" class="badge text-bg-secondary" >{{totalCant}}</span>   
+                                    {% else %}
+                                        <span id="cantidadProductos" class="badge text-bg-secondary"> 0 </span>   
+                                    {% endif %}
+                                {% endwith %}
+                            {% elif carrito.carrito.recurso|length > 0 %}
+                                {% with carrito.carrito.recurso|length as totalCant %}
+                                    {% if totalCant > 0 %}
+                                        <span id="cantidadProductos" class="badge text-bg-secondary" >{{totalCant}}</span>   
+                                    {% else %}
+                                        <span id="cantidadProductos" class="badge text-bg-secondary"> 0 </span>   
+                                    {% endif %}
+                                {% endwith %}
+                            {% else %}
+                                <span id="cantidadProductos" class="badge text-bg-secondary"> 0 </span>   
+                            {% endif %}
+                        </button>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        {% else %} 
+            <a href="{% url 'login' %}">Identificate</a> 
+        {% endif %}
+        
+        
+        <button class="panel-btn hamburger hamburger--vortex" type="button">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </button>
+    </div>
+</header>
+<aside class="panel">
+    <nav class="menu">
+        <a href="{% url 'index' %}">Inicio</a>
+        <a href="{% url 'cursos' %}">Cursos</a>
+        {% if user.is_authenticated %}
+            {% for g in user.groups.all %}
+                {% if g.name == "administrador" %}
+                    <a href="{% url 'pedidos' %}">Pedidos</a>
+                {% endif %}
+                {% if g.name == "profesor"%}
+                    <a href="{% url 'clases' %}">Repositorio de clases</a>
+                {% endif %}
+                
+            {% endfor %}
+        {% endif %}
+    </nav>
+</aside>

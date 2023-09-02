@@ -1,0 +1,69 @@
+main {
+  padding: 20px 0;
+}
+
+.mainContainer {
+  width: 80%;
+  background-color: white;
+  padding: 0 20px;
+  border-radius: 20px;
+  margin: 0 auto;
+}
+.mainContainer #datosCuenta img {
+  width: 100%;
+}
+.mainContainer .containerPedido p {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.mainContainer .containerPedido p label {
+  width: 25%;
+  height: 5vh;
+}
+.mainContainer .containerPedido p input {
+  width: 70%;
+}
+.mainContainer .containerPedido p textarea {
+  width: 70%;
+  height: 30vh;
+}
+.mainContainer .buttonG {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+.mainContainer .clasesContainer #detalleClases_wrapper {
+  text-align: center;
+}
+.mainContainer .clasesContainer #detalleClases_wrapper #detalleClases_filter, .mainContainer .clasesContainer #detalleClases_wrapper #detalleClases_info {
+  display: none;
+}
+.mainContainer .clasesContainer #detalleClases_wrapper table {
+  width: 100%;
+  text-align: center;
+  border-collapse: separate !important;
+  word-wrap: break-word;
+}
+.mainContainer .clasesContainer #detalleClases_wrapper table thead {
+  background-color: #056ac2;
+}
+.mainContainer .clasesContainer #detalleClases_wrapper table tbody {
+  background-color: #c9c9d3;
+}
+.mainContainer .clasesContainer #detalleClases_wrapper table tbody td {
+  overflow: hidden;
+}
+.mainContainer .clasesContainer #addClass {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+#id_total {
+  border: none;
+}/*# sourceMappingURL=create.css.map */

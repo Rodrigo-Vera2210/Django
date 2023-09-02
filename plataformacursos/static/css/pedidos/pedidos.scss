@@ -1,0 +1,24 @@
+@import "../variables";
+main{
+    padding: 20px;
+    #main-container{
+        padding: 5%;
+        background-color: $background-color-menu;
+        border-radius: 20px;
+    }
+}
+
+#detalleCursos, #detalleRecursos{
+    flex-direction: column;
+    div{
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        div{
+            width: 100%;
+            flex-direction: row;
+            text-align: center;
+            justify-content: center;
+        }
+    }
+}

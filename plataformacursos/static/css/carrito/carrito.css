@@ -1,0 +1,19 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+main .container {
+  width: 80%;
+  padding: 20px;
+  background-color: #fcfcf9;
+  border-radius: 20px;
+}
+main .container .product-item {
+  width: 90%;
+  margin: 0 auto;
+}
+main #pagarCompra {
+  margin-right: 60px;
+}/*# sourceMappingURL=carrito.css.map */

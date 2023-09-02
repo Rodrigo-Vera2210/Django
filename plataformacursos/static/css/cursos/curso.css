@@ -1,0 +1,108 @@
+main {
+  padding: 30px 0;
+}
+main h1, main p, main h2, main h3 {
+  color: white !important;
+}
+main .subMenu {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 10px;
+  background-color: #056ac2;
+}
+main #mainContainer {
+  width: 90%;
+  margin: auto;
+  padding: 20px;
+  background-color: #056ac2;
+  border-radius: 20px;
+}
+main #mainContainer #mainCurso {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+main #mainContainer #mainCurso .titulo {
+  padding: 20px;
+}
+main #mainContainer .video {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main #mainContainer #containerDescripcion p {
+  padding: 0 20px;
+}
+main #mainContainer #containerDescripcion ul {
+  list-style: none;
+}
+main #mainContainer #containerDescripcion ul li a {
+  color: white;
+  text-decoration: none;
+}
+main #foro {
+  background-color: #056ac2;
+  border-radius: 20px;
+  padding: 15px;
+  width: 90%;
+  margin: 10px auto;
+}
+
+.menuClases {
+  position: fixed;
+  z-index: 998;
+  width: 200px;
+  background-color: #292927;
+  transition: transform 3s ease;
+  transform: translate(-80%, 0%);
+}
+
+.menuClases.is-active {
+  transform: translate(0%, 0);
+}
+
+.subMenu-btn {
+  z-index: 999;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menuClases a:hover {
+  font-weight: bold;
+  color: #292927;
+  background-color: #c9c9d3;
+}
+
+.tab-pane, .nav-link {
+  color: white;
+}
+
+#nav-recursos ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+@media (min-width: 850px) {
+  main {
+    display: flex;
+  }
+  main #mainContainer {
+    width: 70%;
+  }
+  main .video {
+    display: flex;
+    justify-content: center;
+  }
+  main #foro {
+    width: 25%;
+  }
+  #mainCurso .titulo {
+    width: 500px;
+  }
+}/*# sourceMappingURL=curso.css.map */

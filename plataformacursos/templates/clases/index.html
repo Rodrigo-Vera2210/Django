@@ -1,0 +1,98 @@
+{% extends '../base.html' %} 
+{% load widget_tweaks %}
+{% load static %}
+{% block 'styles' %}
+    <link rel="stylesheet" href="{% static 'css/clases/create.css' %}">
+{% endblock%}
+
+{% block 'content' %}
+    <div class="mainContainer">
+        <section class="clasesContainer">
+            <h2>Repositorio clases</h2>
+            <table id="detalleClases">
+                <thead>
+                    <th>Titulo</th>
+                    <th>Descripcion</th>
+                    <th>URL</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    
+                    {% for clase in clases %}
+                        <tr>
+                            <td>{{clase.titulo}} </td>
+                            <td>{{clase.descripcion}} </td>
+                            <td>{{clase.link_video}} </td>
+                            <td><button class="btn-sm btn-danger" type="button" onclick="abrir_modal('../clases/delete/{{clase.id}}')"><i class="bi bi-trash-fill"></button></td>
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+            <div id="addClass"><button type="button" class="btn btn-dark" onclick="abrir_modal('../../clases/crear')">Añadir clase</button></div>
+        </section>
+    </div>
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalCategoria" aria-hidden="true" role="dialog">
+    </div>
+{% endblock 'content' %}
+    
+
+{% block script %}
+    <script>
+        $('#detalleClases').DataTable();
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+        function guardar () {
+            var data = new FormData($('#form_creacion').get(0))
+            data.append("accion","guardar")
+            $.ajax({
+                url: "{% url 'createClases' %}",
+                type: 'post',
+                headers: {'X-CSRFToken': csrftoken},
+                data: data,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+            }).done(function(data){
+                if (data['error'] == '') {
+                    mensajeSuccess('Clase creado con exito')
+                }else{
+                    mensajeError(data['error'])
+                }
+            }).fail(function(data){
+                mensajeError(data);
+            }).always(function(data){
+                // alert("complete");
+            });
+        };
+        
+        function eliminar_clase(pk){
+            $.ajax({
+                data:{
+                    csrfmiddlewaretoken: $("[name = 'csrfmiddlewaretoken']").val()
+                },
+                url: '../clases/delete/'+pk,
+                type: 'post',
+            }).done(function(data){
+                mensajeSuccess('La clase ha sido eliminado con exito')
+            }).fail(function(error){
+
+            })
+        }
+    </script>
+{% endblock script %}

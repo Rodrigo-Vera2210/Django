@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/scss/bootstrap.css' %}">
+    <title>Login</title>
+</head>
+<body>
+    <main>
+        <div id="login-container">
+            <img src="{% static 'img/logo.jpg' %}" alt="Logo">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Iniciar sesión</h5>
+                </div>
+                <div class="modal-body">
+                    {% if form.errors %}
+                        <div id="mensaje" class="alert alert-danger alert-dismissible" role="alert">
+                            {{ form.get_invalid_login_error }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="datos">
+                            <div class="usuario">
+                                <label class="label">Usuario: </label>
+                                {{ form.username }}
+                            </div>
+                            <div class="contraseña">
+                                <label class="label">Contraseña: </label>
+                                {{ form.password }}
+                            </div>
+                        </div>
+                        <button class="btn btn-primary active btn-lg" type="submit">Iniciar sesión</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'usuarioCreate' %}" class="btn">¿No tienes cuenta?</a>
+                    <a href="" class="btn">Restablecer contraseña</a>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+    
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

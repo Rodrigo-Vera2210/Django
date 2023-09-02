@@ -1,0 +1,48 @@
+@import "../variables";
+main{
+    padding: 20px 0;
+}
+.mainContainer{
+    width: 80%;
+    background-color: white;
+    padding: 0 20px;
+    border-radius: 20px;
+    margin: 0 auto;
+    .containerCurso{
+        p{
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            label{
+                width: 25%;
+                height: 5vh;
+            }
+            input{
+                width: 70%;
+            }
+            textarea{
+                width: 70%;
+                height: 30vh;
+            }
+        }
+        
+    }
+    .buttonG{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .clasesContainer{
+        #addClass{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+    }
+    .buscador_field{
+        width: 90%;
+    }
+}

@@ -1,0 +1,66 @@
+{% load widget_tweaks %}
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="exampleModalLabel">Pedido {{pedidos.id}} </h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div><label for="">Alumno: </label> {{pedidos.alumno.nombre}} {{pedidos.alumno.apellido}} </div>
+            <div><label for="">Fecha: </label>{{pedidos.fecha}} </div>
+            <div><label for="">Archivo: </label><a href="../media/{{pedidos.comprobante}}" target="_blank">{{pedidos.comprobante}}</a> </div>
+            <div><label for="">Total: </label>$ {{pedidos.total}} </div>
+            {% if cursos|length > 0 %}
+                <hr>
+                <div id="detalleCursos">
+                    <h5>Cursos</h5>
+                    <table id="tablaCursos">
+                        <thead>
+                            <th>Titulo</th>
+                            <th>Precio</th>
+                        </thead>
+                        <tbody>
+                            {% for curso in cursos %}
+                                <tr>
+                                    <td>{{curso.curso.titulo}}</td>
+                                    <td>{{curso.curso.precio}} </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+            
+            {% if recursos|length > 0  %}
+                <hr>
+                <div id="detalleRecursos">
+                    <h5>Recursos</h5>
+                    <table id="tablaRecursos">
+                        <thead>
+                            <th>Titulo</th>
+                            <th>Precio</th>
+                        </thead>
+                        <tbody>
+                            {% for recurso in recursos %}
+                                <tr>
+                                    <td>{{recurso.recurso.titulo}}</td>
+                                    <td>{{recurso.recurso.precio}} </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-success" onclick="aprobar('{{pedido.id}}')">Aprobar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#tablaRecursos').DataTable();
+    $('#tablaCursos').DataTable();
+</script>

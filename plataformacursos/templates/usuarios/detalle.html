@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block 'title' %}Crear{% endblock %}
+
+{% block 'styles' %}
+    <link rel="stylesheet" href="{% static 'css/usuarios/detalle.css' %}">
+{% endblock %}
+
+
+{% block 'content' %}
+    <div id="main-container">
+        <h1>Mi Perfil</h1>
+        <hr>
+        <h2>Datos de cuenta</h2>
+        <div id="datosCuenta">
+            <section id="datos">
+                <div><label for=""><b>Nombre:</b></label> <p>{{usuario.nombre}}</p> </div>
+                <div><label for=""><b>Apellido:</b></label> <p>{{usuario.apellido}}</p> </div>
+                <div><label for=""><b>Direccion:</b></label> <p>{{usuario.direccion}}</p> </div>
+                <div><label for=""><b>Cedula:</b></label> <p>{{usuario.c_id}}</p> </div>
+                <div><label for=""><b>Telefono:</b></label><p>{{usuario.telefono}}</p>  </div>
+            </section>
+            <section id="Foto">
+                <div><label for=""><b>Foto de Perfil:</b></label> 
+                    {% if usuario.foto != 'default.png' %}
+                        <img src="../../media/{{usuario.foto}}" alt="Mi Foto">
+                    {% else %}
+                        <img src="../../media/usuarios/{{usuario.foto}}" alt="Mi Foto">
+                    {% endif %}  
+                </div>
+            </section>
+        </div>
+        <hr>
+        
+            
+        {% for g in user.groups.all %}
+            {% if g.name == "alumno" %}
+                <h2>Mis Cursos</h2> 
+                <table id="misCursos">
+                    <thead>
+                        <th>Nombre</th>
+                        <th>Profesor</th>
+                        <th>Nota</th>
+                        <th>Progreso</th>
+                        <th>Estado</th>
+                    </thead>
+                    <tbody>
+                        {% for curso in cursos %}
+                            <tr>
+                                <td><a href="">{{curso.curso.titulo}} </a></td>
+                                <td>{{curso.curso.profesor.nombre}} {{curso.curso.profesor.apellido}}</td>
+                                <td>{{curso.nota}}</td>
+                                <td>{{curso.progreso}} </td>
+                                <td>
+                                    {% if curso.aprobacion == False %}
+                                        Inscripto
+                                    {% else %}
+                                        En curso
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        {% endfor %}
+        
+    </div>       
+{% endblock 'content' %}
+
+
+{% block script %}
+    <script>
+        $('#misCursos').DataTable()
+        const $select = document.querySelector('#id_groups');
+        $select.value = '2'
+        $('#añadir-cliente').click(function(){
+            mensajeSuccess('Cliente creado con exito')
+        })
+    </script>
+{% endblock script %}
+    

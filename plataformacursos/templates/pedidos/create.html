@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block 'title' %}Crear{% endblock %}
+
+{% block 'styles' %}
+    <link rel="stylesheet" href="{% static 'css/pedidos/create.css' %}">
+{% endblock %}
+
+
+{% block 'content' %}
+    <div class="mainContainer">
+        <h1>Pagar pedido</h1>
+        <div id="datosCuenta">
+            <p>Para registrar su pago, realice un deposito o transferencia a las siguiente cuentas</p>
+            <p>Luego suba su comprobante en formato PDF o imagen</p>
+            <hr>
+            <h3>Datos de la cuenta</h3>
+            <hr>
+            <img src="{% static 'img/datosCuenta.png' %}" alt="">
+            <hr>
+        </div>
+        <form class="containerPedido" id="form_creacion" action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p><label for="">{{form.comprobante.label}}</label>{{form.comprobante}} </p>
+            <p><label for="">{{form.total.label}}</label>{{form.total}} </p>
+            <p style="display: none;">{{form.aprobado}} </p>
+            <p style="display: none;">{{form.alumno}} </p>
+            <p>{{form.errors}}</p>
+        </form>
+        <div id="button-container" class="buttonG">
+            <input class="btn btn-success" id="añadir-usuario" type="submit" onclick="guardarPedido()" value="Pagar">
+        </div> 
+    </div> 
+        
+{% endblock 'content' %}
+
+
+{% block script %}
+    <script>
+        const $select = document.querySelector('#id_alumno');
+        const $valor = document.querySelector('#id_total');
+        $select.value = '{{user.id}}'
+        $valor.setAttribute('type','text')
+        $valor.value = (parseFloat('{{carrito.getTotal}}')).toString()+'.00'
+        const $listaCursos = []
+        {% for item in carrito %}
+            $listaCursos.push('{{item.curso.product.id}}')
+        {% endfor %}
+        console.log($listaCursos);
+        $('#añadir-cliente').click(function(){
+            mensajeSuccess('Cliente creado con exito')
+        })
+        const csrftoken = getCookie('csrftoken');
+        function guardarPedido() {
+            var data = new FormData($('#form_creacion').get(0))
+            data.append("accion","guardar")
+            data.append("cursos", JSON.stringify($listaCursos))
+            $.ajax({
+                url: "{% url 'createPedidos' %}",
+                type: 'post',
+                headers: {'X-CSRFToken': csrftoken},
+                data: data,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+            }).done(function(data){
+                if (data['error'] == '') {
+                    for (const key in $listaCursos) {
+                        inscripcion(parseInt($listaCursos[key]),parseInt('{{user.id}}'));
+                    }
+                }else{
+                    mensajeError(data['error'])
+                }
+            }).fail(function(data){
+                mostrarErrores(data, 'producto');
+            }).always(function(data){
+                // alert("complete");
+            });
+        }
+        function inscripcion(id,userId){
+            var data = new FormData()
+            data.append("id", id)
+            data.append("user", userId)
+            data.append("accion", 'inscripcionCurso')
+            $.ajax({
+                url: '{% url "createCursos" %}',
+                type: 'post',
+                headers: {'X-CSRFToken': csrftoken},
+                data: data,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+            }).done(function(data){
+                if(data['error'] == ''){
+                    mensajeSuccess('Recurso creado con exito')
+                }else{
+                    deleteC(id,'curso')
+                    mensajeError(data['error']);
+                }
+            }).fail(function(data){
+                mostrarErrores(data, 'producto');
+            }).always(function(data){
+                // alert("complete");
+            });
+        }
+    </script>
+{% endblock script %}
+    

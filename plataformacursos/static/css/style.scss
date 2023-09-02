@@ -1,0 +1,225 @@
+@import "variables";
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: $font-principal !important;
+    
+}
+
+body{
+    header{
+        background-color: $background-color-menu;
+        height: 100px;
+        width: 100vw;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        #header-sup{
+            width: 20%;
+            padding: 10px 0;
+            img{
+                width: 80px;
+            }
+        }
+        #subMenu{
+            display: flex;
+            align-items: center;
+        }
+        a{
+            color: $color-third;
+            text-decoration: none;
+        }
+    }
+    
+    main{
+        background-color: $color-secundary;
+        width: 100vw;
+        min-height: 80vh;
+        h1, h2, h3 {
+            color: $color-third;
+            padding: 30px;
+            margin: 0;
+        }
+        
+    }
+    
+    footer {
+        background-color: $background-color-menu;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        p{
+            text-align: center;
+            margin: 0;
+        }
+        
+        section{
+            width: 20%;
+            margin: 0 100px;
+            padding: 10px 0;
+            img{
+                width: 80%;
+            }
+        }
+    }
+}
+
+
+.buscador{
+    width: 100%;
+    background-color: $color-secundary;
+    padding: 10px;
+    border: solid 1px $background-color;
+    margin: 10px 0;
+    form{
+        input{
+            width: 60%;
+            height: 35px;
+            padding: 0 15px;
+        }
+    }
+}
+
+.dataTables_wrapper{
+        text-align: center;
+        .dataTables_filter,.dataTables_info{
+            display: none;
+        }
+        table{
+            width: 100%;
+            text-align: center;
+            border-collapse: separate !important;
+            word-wrap: break-word;
+            thead{
+                background-color: $color-third;
+                color: $background-color-menu;
+            }
+            tbody{
+                background-color: $color-secundary;
+                td{        
+                    overflow: hidden;
+                }
+            }
+        }
+        .dataTables_paginate{
+            text-align: end;
+            a,span{
+                padding: 0 5px;
+            }
+            a{
+                text-decoration: none;
+            }
+        }
+    }
+
+
+
+.panel{
+    position: fixed;
+    z-index: 998;
+    width: 20%;
+        
+    background-color: $background-color;
+    transition: transform 3s ease;
+    transform: translate(500%, 0%);
+}
+
+.panel.is-active{
+    transform: translate(400%, 0);
+}
+
+.panel-btn{
+    z-index: 999;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menu{
+    margin-right: 0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}
+
+.menu a{
+    padding: 0.5rem;
+    width: 100%;
+    display: block;
+    font-size: 1.25rem;
+    text-decoration: none;
+    color: $color-secundary;
+    transition: all 0.3s easer;
+}
+
+.menu a:hover{
+    font-weight: bold;
+    color: $background-color;
+    background-color: $color-secundary;
+}
+
+
+.modal-body{
+    div{
+        width: 100%;
+        display: flex;
+        padding: 10px 0;
+        label{
+            width: 25%;
+        }
+        input,textarea{
+            width: 70%;
+        }
+    }
+}
+
+.dropdown2 {
+    float: left;
+    overflow: hidden;
+    .dropbtn {
+        font-size: 16px;
+        border: none;
+        outline: none;
+        color: $color-third;
+        padding: 14px 16px;
+        background-color: inherit;
+        font-family: inherit; /* Important for vertical align on mobile phones */
+        margin: 0; /* Important for vertical align on mobile phones */
+    }
+    &:hover .dropdown-content {
+        display: block;
+    }
+}
+
+.navbar2 a:hover, .dropdown2:hover .dropbtn, a:hover {
+    background-color: $color-primary;
+    color: white;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px $color-third;
+    z-index: 1;
+    a {
+        float: none;
+        color: $color-third;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+}
+
+#cantidadProductos{
+    color: $color-third;
+    border-radius: 50%;
+    border: solid 1px gray;
+}

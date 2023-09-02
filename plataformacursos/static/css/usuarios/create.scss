@@ -1,0 +1,42 @@
+@import "../variables";
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    #main-container{
+        width: 90%;
+        background-color: $background-color-menu;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        form{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            flex-wrap: wrap;
+            p{
+                min-width: 90%;
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: center;
+                justify-content: start;
+                label{
+                    width: 200px;
+                    font-weight: 900;
+                }
+                input,select{
+                    width: 55%;
+                }
+            }
+            div{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+        }
+    }
+}

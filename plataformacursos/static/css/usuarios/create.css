@@ -1,0 +1,40 @@
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+main #main-container {
+  width: 90%;
+  background-color: #fcfcf9;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+main #main-container form {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+main #main-container form p {
+  min-width: 90%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: start;
+}
+main #main-container form p label {
+  width: 200px;
+  font-weight: 900;
+}
+main #main-container form p input, main #main-container form p select {
+  width: 55%;
+}
+main #main-container form div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}/*# sourceMappingURL=create.css.map */

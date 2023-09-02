@@ -1,0 +1,76 @@
+@import "../variables";
+main{
+    padding: 20px 0;
+}
+.mainContainer{
+    width: 80%;
+    background-color: white;
+    padding: 0 20px;
+    border-radius: 20px;
+    margin: 0 auto;
+    #datosCuenta{
+        img{
+            width: 100%;
+        }
+    }
+    .containerPedido{
+        p{
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            label{
+                width: 25%;
+                height: 5vh;
+            }
+            input{
+                width: 70%;
+            }
+            textarea{
+                width: 70%;
+                height: 30vh;
+            }
+        }
+        
+    }
+    .buttonG{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 20px;
+    }
+    .clasesContainer{
+        #detalleClases_wrapper{
+            text-align: center;
+            #detalleClases_filter,#detalleClases_info{
+                display: none;
+            }
+            table{
+                width: 100%;
+                text-align: center;
+                border-collapse: separate !important;
+                word-wrap: break-word;
+                thead{
+                    background-color: $color-third;
+                }
+                tbody{
+                    background-color: $color-secundary;
+                    td{        
+                        overflow: hidden;
+                    }
+                }
+            }
+        }
+        #addClass{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+    }
+}
+
+#id_total{
+    border: none;
+}

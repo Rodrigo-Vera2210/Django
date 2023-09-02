@@ -1,0 +1,78 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Inventario | | {% block 'title' %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/scss/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/dist_sweetalert2.min.css'%}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/select2.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.2.1/hamburgers.css"/>
+
+    {% block 'styles' %}{% endblock%}
+</head>
+<body>
+    {% include 'partials/header.html' %}
+    <main>
+        
+        {% block 'content' %}
+            
+        {% endblock 'content' %}
+            
+    </main>
+    {% include 'partials/footer.html' %}
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static 'js/dist_sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/select2.min.js' %}"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
+    <script>
+        hamburgerMenu(".panel-btn",".panel",".menu a");
+        function hamburgerMenu(panelBtn, panel, menuLink){
+            const d = document;
+    
+            d.addEventListener("click",e => {
+                if(e.target.matches(panelBtn) || e.target.matches(`${panelBtn} *`) ){
+                    d.querySelector(panel).classList.toggle("is-active")
+                    d.querySelector(panelBtn).classList.toggle("is-active")
+                }
+                if(e.target.matches(menuLink)){
+                    d.querySelector(panel).classList.remove("is-active")
+                    d.querySelector(panelBtn).classList.remove("is-active")
+                }
+            })
+        }
+        function deleteC(id,tipo){
+            $.ajax({
+                url: '{% url "carritoDelete" %}',
+                type: 'post',
+                headers: {'X-CSRFToken': csrftoken},
+                data: {
+                    id: id,
+                    tipo: tipo,
+                    action: 'deleteCurso'
+                },
+                dataType: 'json',
+            }).done(function(data){
+                if (data['error'] == '') {
+                    mensajeSuccess('El curso a sido eliminado con exito')
+                }else{
+                    mensajeError(data['error'])
+                }
+            }).fail(function(data){
+                mostrarErrores(data, 'producto');
+            }).always(function(data){
+                // alert("complete");
+            });
+        }
+    </script>
+    {% block script %}
+    {% endblock script %}
+</body>
+
+</html>

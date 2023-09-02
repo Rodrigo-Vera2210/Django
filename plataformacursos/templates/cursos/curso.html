@@ -1,0 +1,161 @@
+{% extends '../base.html' %} 
+{% load embed_video_tags %}
+{% load static %}
+
+{% block 'styles' %}
+    <link rel="stylesheet" href="{% static 'css/cursos/curso.css' %}">
+{% endblock%}
+
+{% block 'content' %}
+
+    <aside class="menuClases">
+        
+        <div class="subMenu">
+            <button class="subMenu-btn hamburger hamburger--vortex" type="button">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </button>
+        </div>
+        <div class="accordion" id="nav">
+            {% for modulo in modulos %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{modulo.id}}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{modulo.id}}" aria-expanded="true" aria-controls="collapseOne">
+                            {{modulo.titulo}}
+                        </button>
+                    </h2>
+                    <div id="collapse{{modulo.id}}" class="accordion-collapse collapse" aria-labelledby="heading{{modulo.id}}" data-bs-parent="#nav">
+                        <div class="accordion-body">
+                            <ul>
+                                {% for detMod in detallesModulos %}
+                                    {% if detMod.modulo.id == modulo.id %}    
+                                        <li> 
+                                            <a href="{% url 'detalleCursos' pk=detMod.curso.id clase=detMod.clase.id %}" class="">{{detMod.clase.titulo}}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+    </aside>
+        
+        <section id="mainContainer">
+            {% if clase == clases.0 %}
+                <div id="mainCurso">
+                    <div class="video">
+                        {% video clase.link_video '570 x 360' %}
+                    </div>
+                    <div class="titulo">
+                        <h1>{{cursos.titulo}}</h1>
+                        <p>{{cursos.descripcion}} </p>
+                    </div>
+                </div>
+                <div id="containerDescripcion">
+                    <hr>
+                    <h2>Contenido</h2>
+                    <ul>
+                        {% for clase in clases %}
+                            <li><i class="bi bi-youtube"></i><a href="{% url 'detalleCursos' pk=cursos.id clase=clase.id%}"> {{clase.titulo}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% else %}
+                <input type="hidden" value="{{clase.id}}" id="idClase">
+                <div class="video">
+                    {% video clase.link_video '920 x 560' %}
+                </div>
+                <h3>{{clase.titulo}} </h3>
+                <div>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Apuntes</button>
+                            <button class="nav-link" id="nav-recursos-tab" data-bs-toggle="tab" data-bs-target="#nav-recursos" type="button" role="tab" aria-controls="nav-recursos" aria-selected="false">Recursos</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                            ...
+                        </div>
+                        <div class="tab-pane fade" id="nav-recursos" role="tabpanel" aria-labelledby="nav-recursos-tab" tabindex="0">
+                            <ul>
+                                {% for recurso in recursos %}
+                                    <li><a href="{{recurso.link}}" target="_blank">{{recurso.titulo}}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% for g in user.groups.all %}
+                                {% if g.name == "profesor" %}
+                                    <button class="btn btn-dark" onclick="abrir_modal('../../recursos/crear')">Añadir recurso</button>
+                                {% endif %}  
+                            {% endfor %}    
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </section>
+        
+    {% if clase != clases.0 %}
+        <aside id="foro">
+            <div>
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-aportes-tab" data-bs-toggle="tab" data-bs-target="#nav-aportes" type="button" role="tab" aria-controls="nav-aportes" aria-selected="true">Aportes</button>
+                        <button class="nav-link" id="nav-preguntas-tab" data-bs-toggle="tab" data-bs-target="#nav-preguntas" type="button" role="tab" aria-controls="nav-preguntas" aria-selected="false">Preguntas</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-aportes" role="tabpanel" aria-labelledby="nav-aportes-tab" tabindex="0">
+                        ...
+                    </div>
+                    <div class="tab-pane fade" id="nav-preguntas" role="tabpanel" aria-labelledby="nav-preguntas-tab" tabindex="0">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio expedita voluptate laboriosam nulla! Minus suscipit veniam explicabo enim, earum porro harum numquam nisi, repudiandae libero, voluptatum qui dignissimos autem consequatur?
+                    </div>
+                </div>
+            </div>
+        </aside>
+    {% endif %}
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalCategoria" aria-hidden="true" role="dialog">
+    </div>
+{% endblock 'content' %}
+
+{% block script %}
+    <script>
+        var ruta = window.location.href;
+        function guardarRecurso(){
+            const csrftoken = getCookie('csrftoken');
+            $.ajax({
+                url: ruta,
+                type: 'post',
+                headers: {'X-CSRFToken': csrftoken},
+                data: {
+                    titulo: $('#tituloRecurso').val(),
+                    descripcion: $('#descripRecurso').val(),
+                    link: $('#id_link').val(),
+                    precio: $('#id_precio').val(),
+                    clase: $('#idClase').val(),
+                    action: 'guardarRecurso'
+                },
+                dataType: 'json',
+            }).done(function(data){
+                if (data['error'] == '') {
+                    mensajeSuccess('Recurso creado con exito')
+                    cerrar_modal_eliminacion()
+                }else{
+                    mensajeError(data['error'])
+                }
+            }).fail(function(data){
+                mostrarErrores(data, 'producto');
+            }).always(function(data){
+                // alert("complete");
+            });
+        }
+        hamburgerMenu(".subMenu-btn",".menuClases",".menuC a");
+        function cambiarVideo(url) {
+            console.log(url);
+            $('')
+        }
+    </script>
+{% endblock script%}

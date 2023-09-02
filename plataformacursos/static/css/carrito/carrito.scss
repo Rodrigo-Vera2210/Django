@@ -1,0 +1,21 @@
+@import "../variables";
+
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    .container{
+        width: 80%;
+        padding: 20px;
+        background-color: $background-color-menu;
+        border-radius: 20px;
+        .product-item{
+            width: 90%;
+            margin: 0 auto;
+        }
+    }
+    #pagarCompra{
+        margin-right: 60px;
+    }
+}

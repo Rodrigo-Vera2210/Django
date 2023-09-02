@@ -1,0 +1,120 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block 'title' %}Crear{% endblock %}
+
+{% block 'styles' %}
+    <link rel="stylesheet" href="{% static 'css/pedidos/pedidos.css' %}">
+{% endblock %}
+
+{% block 'content' %}
+    
+    <div id="main-container">
+        <h1>Mis Pedidos</h1>
+        <div class="buscador">
+            <form class="search" action="{% url 'pedidos' %}" method="GET">
+                <input class="search-bar" type="text" name="search" placeholder="Buscar pedidos...">
+                <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
+                <span class="aux-btns"><a class="btn btn-primary" href="{% url 'pedidos' %}">Ver todos</a> </span>
+            </form>
+        </div>
+        
+        <div><title></title></div>
+        {% if pedidos|length > 0 %}
+            <table id="tablaPedidos">
+                <thead>
+                    <tr id="table-title">
+                        <th>#Orden</th>
+                        <th>Cliente</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Actuadores</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos %}
+                    <tr class="table-inf">
+                        <td class="inf-id">{{ pedido.id }}</td>
+                        <td class="inf-cliente">{{ pedido.alumno.nombre}} {{pedido.alumno.apellido}}</td>
+                        <td class="inf-fecha">{{ pedido.fecha }}</td>
+                        <td class="inf-total">$ {{ pedido.total }}</td>
+                        <td class="botones">
+                            <span>
+                                <button class="btn btn-primary" type="button" onclick="abrir_modal('../../pedidos/detalle/{{pedido.id}}')"><i class="bi bi-file-text"></i></button> 
+                                <button class="btn btn-danger" type="button" onclick="abrir_modal_eliminacion('ordenes/delete/{{orden.id}}')"><i class="bi bi-trash"></i></button>                            
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+    
+    <!-- The Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalCategoria" aria-hidden="true" role="dialog">
+    </div>
+{% endblock 'content' %}
+
+
+{% block script %}
+    <script>
+        $('#tablaPedidos').DataTable();
+        $('#tablaRecursos').DataTable();
+        $('#tablaCursos').DataTable();
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+        function eliminar_orden(pk){
+            $.ajax({
+                data:{
+                    csrfmiddlewaretoken: $("[name = 'csrfmiddlewaretoken']").val()
+                },
+                url: 'ordenes/delete/'+pk,
+                type: 'post',
+            }).done(function(data){
+                if (data['error'] == '') {
+                    cerrar_modal_eliminacion()
+                    mensajeSuccess('La orden ha sido Eliminada con exito');
+                }else{
+                    mensajeError(data['error'])
+                }
+            }).fail(function(error){
+
+            })
+        }
+        function aprobar(pk){
+            $.ajax({
+                url: "{% url 'createPedidos' %}",
+                type: 'post',
+                headers: {'X-CSRFToken': csrftoken},
+                data:{
+                    accion: 'aprobar',
+                    id: pk
+                },
+                dataType: 'json',
+            }).done(function(data){
+                if (data['error'] == '') {
+                    mensajeSuccess('La orden ha sido aprobada con exito')
+                }else{
+                    mensajeError(data['error'])
+                }
+            }).fail(function(error){
+
+            })
+        }
+    </script>    
+{% endblock script %}
+    
